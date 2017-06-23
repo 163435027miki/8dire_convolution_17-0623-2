@@ -31,8 +31,8 @@ double **submatrix(double **a, long oldrl, long oldrh, long oldcl, long oldch,
 
 //opencv‚ðŽg‚¤‚½‚ß‚É’Ç‰Á‚µ‚½
 //void make_bmp(int argc, char** argv);
-void make_bmp(char date_directory[],char Filename1[],int image_x,int image_y,int make_image_repeat,int Save_image_flag[][9]);
-void read_filter(char inputfilter_directory[],int fs,double *spfil1[]);
+void make_bmp(char date_directory2[],char Filename1[],int image_x,int image_y,int make_image_repeat,int Save_image_flag[][9]);
+
 void convolution(int image_y,int image_x,int fs, int hfs,double *output1[],double *spfil1[],double *input_bmp[],double magnification);
 void write_file(char *Filename,int image_x,int image_y,double *output1[],int Rvector_create,int Rvector_pointX,int Rvector_pointY,double Rvector[],int Rvector_number);
 

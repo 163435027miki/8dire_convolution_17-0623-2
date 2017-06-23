@@ -32,7 +32,7 @@ char use_name[128];
 
 
 
-void make_bmp(char date_directory[],char Filename1[],int image_x,int image_y,int make_image_repeat,int Save_image_flag[][9]) {
+void make_bmp(char date_directory2[],char Filename1[],int image_x,int image_y,int make_image_repeat,int Save_image_flag[][9]) {
 	
 	if(Save_image_flag[2][make_image_repeat]==0)return;		//特定の箇所の画像を作成しない時に帰る
 	
@@ -52,9 +52,9 @@ void make_bmp(char date_directory[],char Filename1[],int image_x,int image_y,int
 	
 //////////////////入出力ファイルのディレクトリ生成//////////////////////////////////////////////////////////
 
-	sprintf(Output_Image_name,"%s%s.bmp",date_directory,use_name);	//出力画像.bmp
+	sprintf(Output_Image_name,"%s%s.bmp",date_directory2,use_name);	//出力画像.bmp
 	
-	sprintf(iutput_csv_name,"%s%s.csv",date_directory,use_name);		//入力画像の画素値.csv
+	sprintf(iutput_csv_name,"%s%s.csv",date_directory2,use_name);		//入力画像の画素値.csv
 
 	
 
@@ -124,12 +124,12 @@ void make_bmp(char date_directory[],char Filename1[],int image_x,int image_y,int
 
 	 //名前をつける
 	//std::string windowName = "make_image";
-	std::string windowName = use_name;
+	//std::string windowName = use_name;
 	
-	cv::namedWindow(windowName);
+	//cv::namedWindow(windowName);
 
 	//画面表示
-	cv::imshow(windowName,make_image);
+	//cv::imshow(windowName,make_image);
 	 
  
 	

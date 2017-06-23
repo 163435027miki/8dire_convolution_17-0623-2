@@ -1,6 +1,6 @@
-Time : 2017-0623-133645
+Time : 2017-0623-171645
 Rvector_create=0
-ImputImage=..\\bmp\\3-3‚İ‰~_2.bmp
+ImputImage=..\\bmp\\3-3‚İ‰~_2_sd30.bmp
 ImputImage_sizeFX=256CY=256
 Upper_threshold : 35.000000, Under_threshold : -35.000000
 use_upperthreshold_flag : 1, use_underthreshold_flag : 1
