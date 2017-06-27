@@ -8,6 +8,7 @@
 
 
 
+
 using namespace std;
 
 //opencv‚Ì‚½‚ß•K—v

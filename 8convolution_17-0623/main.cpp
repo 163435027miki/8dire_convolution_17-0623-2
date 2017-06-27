@@ -85,6 +85,8 @@ void read_property(ifstream &propety_dire);
 void Rvector_createF();
 void set_outputfile(char date[]);
 void read_filter(char inputfilter_directory[],int fs,double *spfil1[]);
+int arctan(char date_directory[], int image_x, int image_y);
+int cossim_result_row(char date_directory[], int image_x, int image_y);
 
 void main(int argc, char** argv) {
 
@@ -143,7 +145,7 @@ void main(int argc, char** argv) {
 		if(change_image==1)parameter=10;
 		if(change_image==2)parameter=100;
 
-		sprintf(image_nameP,"..\\property_usa\\simulation17-0613\\property_%dk_conv_",parameter);
+		sprintf(image_nameP,"..\\property_usa\\simulation17-0627-2\\property_%dk_conv_",parameter);
 		//sprintf(image_nameP,"..\\property_usa\\simulation17-0613\\property_3k_conv_sd0");
 
 			for(sd=0;sd<=50;sd=sd+10){
@@ -157,6 +159,7 @@ void main(int argc, char** argv) {
 	
 			sprintf(InputImage, inputimage_directory);	//propertyから読み取った入力画像情報を代入
 	
+			//cv::Mat ImputImageM = cv::imread(InputImage);	//入力画像の読み込み
 			cv::Mat ImputImageM = cv::imread(InputImage);	//入力画像の読み込み
 	
 	
@@ -312,6 +315,9 @@ void main(int argc, char** argv) {
 			free_matrix(output_bmp_flag, 0, image_x-1, 0, image_y-1);
 		}
 	}
+	cossim(date_directory,image_x,image_y);
+	arctan(date_directory,image_x,image_y);
+	cossim_result_row(date_directory, image_x ,image_y);
 }
 
 void set_outputfile(char date[]){
@@ -339,8 +345,16 @@ void set_outputfile(char date[]){
 	else {
 		printf("フォルダ作成に失敗しました。\n");
 	}
-
-	sprintf(date_directory2, "%s\\%dk_conv_sd%d\\", date_directory,parameter,sd);
+/*
+	sprintf(date_directory2, "%sconvolution\\", date_directory);
+	if (_mkdir(date_directory2) == 0) {
+		printf("フォルダ %s を作成しました\n", date_directory2);
+	}
+	else {
+		printf("フォルダ作成に失敗しました。\n");
+	}
+	*/
+	sprintf(date_directory2, "%s%dk_conv_sd%d\\", date_directory,parameter,sd);
 	if (_mkdir(date_directory2) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory2);
 	}
