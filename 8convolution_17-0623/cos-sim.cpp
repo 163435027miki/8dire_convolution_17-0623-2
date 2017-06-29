@@ -35,7 +35,6 @@ int i,j;
 	double V315[255];
 
 	char inputdate_directory[255];					//inputdateの場所
-	//char inputrvector_directory[128]="..\\Rvector\\8dire_3k_0203";				//Rvectorの場所
 	char inputrvector_directory[128];				//Rvectorの場所
 
 	char *Input_Rvectormagniname_s = "\\Rvector_magni.csv";	//基準ベクトルの倍率
@@ -67,8 +66,6 @@ int i,j;
 	char *math_name7_s = "use_Rvector_number.csv";
 	char *math_name8_s = "threshold2.csv";
 	char *math_name9_s = "threshold_low.csv";
-	//char *math_name10_s = "Correction_flag.csv";
-	//char *math_name11_s = "newfunction.csv";						//出力増やす用1/7
 
 	char Input_Rvectormagni_name[255];
 	char Input_Rvectorname1[250];					//基準ベクトル名・基準ベクトルの入力先の設定
@@ -99,11 +96,9 @@ int i,j;
 	char math_name7[128];							//use_Rvector_number(内積でしようする基準ベクトルの番号）
 	char math_name8[128];							//2つの閾値を一つに
 	char math_name9[128];							//threshold(use_Rvector_flagの応答電圧Vの大きさ）
-	//char math_name10[64];							//Correction_flag
-	//char math_name11[64];							//出力増やす用2/7
+
 	
 	double Rvectormagni[10];						//基準ベクトルの倍率		
-	//double innerp[255];								//内積
 	double Rvector_sqrt[9];							//Rvectorの大きさ
 	double Rvector_square[9][9];
 	double Rvector_square_sum[9];
@@ -118,8 +113,6 @@ int i,j;
 	int curcuit_number=8;						//使用する回路
 	int Rvector_number=8;						//使用する基準ベクトルの数
 	int minor_flag=0;							//十字以外の変な基準ベクトルを取るときに1にする
-	//int All_property[10];					//上記の情報を読み込む用
-	//double Angle_accuracy[255];
 
 	ifstream Rvector_0;
 	ifstream Rvector_45;
@@ -129,15 +122,13 @@ int i,j;
 	ifstream Rvector_225;
 	ifstream Rvector_270;
 	ifstream Rvector_315;
-	
-	
 
 	FILE *fp_innerp,*fp_V_sqrt,*fp_Cos_similarity,*fp_Angle,*fp_use_Rvector_flag,*fp_use_Rvector_number,*fp_threshold,*fp_threshold_high,*fp_threshold2;
 
 	void Rvector_read();
 	void Read_output();
 
-int cossim(char date_directory[],int image_x,int image_y){
+int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int paramerter_count,int sd,char date[]){
 	printf("****************************************\n");
 	printf("start： cos-sim\n");
 	printf("****************************************\n");
@@ -147,9 +138,8 @@ int cossim(char date_directory[],int image_x,int image_y){
 	int count_small=0,count_large=0;
 	int count_property=0;
 	int count_Allproperty=0;
-/////////////////////////////////初期設定 : input設定//////////////////////////////////////////////////////////////////
 
-	
+/////////////////////////////////初期設定 : input設定//////////////////////////////////////////////////////////////////
 
 	//Nrutilを用いたメモリの確保
 	
@@ -168,6 +158,7 @@ int cossim(char date_directory[],int image_x,int image_y){
 	double **Cos_similarity = matrix(0, image_x-1, 0, image_y-1);
 	double **Angle = matrix(0, image_x-1, 0, image_y-1);
 	double **innerp = matrix(0, image_x-1, 0, image_y-1);
+	
 	//確保したメモリを初期化する
 			for (i = 0; i < image_y; i++) {
 				for (j = 0; j < image_x; j++) {
@@ -179,7 +170,6 @@ int cossim(char date_directory[],int image_x,int image_y){
 					V225[j][i]=0;
 					V270[j][i]=0;
 					V315[j][i]=0;
-					//use_Rvector_flag[j][i]=0;
 					threshold_low_flag[j][i]=0;
 					threshold_high_flag[j][i]=0;
 					V_sqrt[j][i]=0;
@@ -189,81 +179,7 @@ int cossim(char date_directory[],int image_x,int image_y){
 				}
 			}
 	
-	
-/*
-
-	//propertyファイルの読み込み指定
-    std::ifstream propety_dire("..\\property\\simulation17-0613\\property_3k.txt");		//ここだけ入力すればよい
-
-
-    char propety[255];
-	char Allpropety[255];
-	char inputdate_directory1[255];
-	char inputdate_directory2[255];
-	char inputdate_directory3[255];
-	char inputdate_directory4[255];
-	char inputdate_directory5[255];
-	char inputdate_directory6[255];			//繰返し数を増やしたい1/4
-
-
-	//プロパティtxtファイルの読み込み
-    if (propety_dire.fail())
-    {
-        printf("propertyテキストを読み取ることができません\n");
-        return -1;
-    }
-    while (propety_dire.getline(propety, 256 - 1))
-    {
-
-		if(count_property==0)sprintf(Allpropety,propety);
-		if(count_property==1)sprintf(inputrvector_directory,propety);
-		if(count_property==2)sprintf(inputdate_directory1,propety);
-		if(count_property==3)sprintf(inputdate_directory2,propety);
-		if(count_property==4)sprintf(inputdate_directory3,propety);
-		if(count_property==5)sprintf(inputdate_directory4,propety);
-		if(count_property==6)sprintf(inputdate_directory5,propety);
-		if(count_property==7)sprintf(inputdate_directory6,propety);			//繰返し数を増やしたい2/4
-
-		++count_property;
-    }
-
-	//プロパティtxtファイルの一行目を文字列から数値に変換して関数に代入
-	std::string tmp_Allpropety;
-	std::istringstream stream_Allpropety(Allpropety);
-	while(getline(stream_Allpropety,tmp_Allpropety,',')){
-
-		int All_tmp_property=stof(tmp_Allpropety); //stof(string str) : stringをintに変換
-		All_property[count_Allproperty]=All_tmp_property;
-
-		if(count_Allproperty==0)image_width=All_property[count_Allproperty];
-		if(count_Allproperty==1)direction_number=All_property[count_Allproperty];
-		if(count_Allproperty==2)curcuit_number=All_property[count_Allproperty];
-		if(count_Allproperty==3)Rvector_number=All_property[count_Allproperty];
-		if(count_Allproperty==4)minor_flag=All_property[count_Allproperty];
-
-		++count_Allproperty;
-	}
-
-	image_x=image_width+1;				//入力画像の横幅+1
-	/*
-	printf("direction_number=%d\n",direction_number);
-	printf("curcuit_number=%d\n",curcuit_number);
-	printf("Rvector_number=%d\n",Rvector_number);
-	printf("minor_flag=%d\n",minor_flag);*/
-	int parameter,sd;
-
-	for(int change_image=0;change_image<3;++change_image){
-		if(change_image==0)parameter=3;
-		if(change_image==1)parameter=10;
-		if(change_image==2)parameter=100;
-
-		
-		//sprintf(image_nameP,"..\\property_usa\\simulation17-0613\\property_3k_conv_sd0");
-
-			for(sd=0;sd<=50;sd=sd+10){
-
-				
-	sprintf(inputdate_directory,"%s%dk_conv_sd%d",date_directory,parameter,sd);
+	sprintf(inputdate_directory,"%s%dk_conv_sd%d",date_directory,paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
 	printf("inputdata：%s\n",inputdate_directory);
 
 	//for(int repeat=0;repeat<6;++repeat){			//繰返し数を増やしたい3/4
@@ -272,10 +188,6 @@ int cossim(char date_directory[],int image_x,int image_y){
 
 	
 ////////////////////////////入出力ディレクトリの作成//////////////////////////////////////////////////////////////////////////////
-	
-	
-	
-	
 	
 	//Input
 	sprintf(Input_Filename1,"%s%s",inputdate_directory,Input_Filename1_s);
@@ -287,7 +199,7 @@ int cossim(char date_directory[],int image_x,int image_y){
 	sprintf(Input_Filename7,"%s%s",inputdate_directory,Input_Filename7_s);
 	sprintf(Input_Filename8,"%s%s",inputdate_directory,Input_Filename8_s);
 
-	sprintf(date_directory3, "%s%dk_cossim_sd%d",date_directory, parameter,sd);
+	sprintf(date_directory3, "%s%dk_cossim_sd%d",date_directory, paramerter[paramerter_count],sd);
 	if (_mkdir(date_directory3) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory3);
 	}
@@ -295,7 +207,6 @@ int cossim(char date_directory[],int image_x,int image_y){
 		printf("フォルダ作成に失敗しました。\n");
 	}
 	
-
 ////////////////////////////ファイルの読み込み//////////////////////////////////////////////////////////////////////////////
 	ifstream Rvector_magni();
 	
@@ -312,45 +223,24 @@ int cossim(char date_directory[],int image_x,int image_y){
 
 ////////////////////////エラー出力/////////////////////////////////////////////////////////////////////////////////////////////
 	
-	if(!V_0){cout<<"入力エラー V(0).csvがありません";return 1;}
-	if(!V_45){cout<<"入力エラー V(45).csvがありません";return 1;}
-	if(!V_90){cout<<"入力エラー V(90).csvがありません";return 1;}
-	if(!V_135){cout<<"入力エラー V(135).csvがありません";return 1;}
-	if(!V_180){cout<<"入力エラー V(180).csvがありません";return 1;}
-	if(!V_225){cout<<"入力エラー V(225).csvがありません";return 1;}
-	if(!V_270){cout<<"入力エラー V(270).csvがありません";return 1;}
-	if(!V_315){cout<<"入力エラー V(315).csvがありません";return 1;}
+	if(!V_0){cout<<"入力エラー V(0).csvがありません_cos-sim";return 1;}
+	if(!V_45){cout<<"入力エラー V(45).csvがありません_cos-sim";return 1;}
+	if(!V_90){cout<<"入力エラー V(90).csvがありません_cos-sim";return 1;}
+	if(!V_135){cout<<"入力エラー V(135).csvがありません_cos-sim";return 1;}
+	if(!V_180){cout<<"入力エラー V(180).csvがありません_cos-sim";return 1;}
+	if(!V_225){cout<<"入力エラー V(225).csvがありません_cos-sim";return 1;}
+	if(!V_270){cout<<"入力エラー V(270).csvがありません_cos-sim";return 1;}
+	if(!V_315){cout<<"入力エラー V(315).csvがありません_cos-sim";return 1;}
 	
 	
 /////////////////////////出力ファイルを開く///////////////////////////////////////////////////////////////////////////////////
 
-	
-	
-	
+	if(sd==0){
+		sprintf(inputrvector_directory,"..\\Rvector\\8dire_%dk_0203",paramerter[paramerter_count]);
 
-
-if(sd==0){
-	sprintf(inputrvector_directory,"..\\Rvector\\8dire_%dk_0203",parameter);
-
-	/*
-
-	//Rvector
-	sprintf(Input_Rvectormagni_name,"%s%s",inputrvector_directory,Input_Rvectormagniname_s);
-	sprintf(Input_Rvectorname1,"%s%s",inputrvector_directory,Input_Rvectorname1_s);
-	sprintf(Input_Rvectorname2,"%s%s",inputrvector_directory,Input_Rvectorname2_s);
-	sprintf(Input_Rvectorname3,"%s%s",inputrvector_directory,Input_Rvectorname3_s);
-	sprintf(Input_Rvectorname4,"%s%s",inputrvector_directory,Input_Rvectorname4_s);
-	sprintf(Input_Rvectorname5,"%s%s",inputrvector_directory,Input_Rvectorname5_s);
-	sprintf(Input_Rvectorname6,"%s%s",inputrvector_directory,Input_Rvectorname6_s);
-	sprintf(Input_Rvectorname7,"%s%s",inputrvector_directory,Input_Rvectorname7_s);
-	sprintf(Input_Rvectorname8,"%s%s",inputrvector_directory,Input_Rvectorname8_s);
-	printf("inputrvector_directory=%s,\nInput_Rvectorname4_s=%s\n",inputrvector_directory,Input_Rvectorname4_s);
-	printf("Input_Rvectorname4=%s\n",Input_Rvectorname4);
-	*/
-	
+		//基準ベクトルの読み込み
 		Rvector_read();
 		printf("基準ベクトルを読み込みました");
-
 
 	  for(i=1;i<=8;i++){
 		for(j=1;j<=8;j++){
@@ -358,32 +248,11 @@ if(sd==0){
 			}
 		printf("\n");
 	  }
-}
-  Read_output();
-  /*
-  //Output
-	sprintf(math_name1,"%s\\%s",date_directory3, math_name1_s);
-	sprintf(math_name2,"%s\\%s",date_directory3, math_name2_s);
-	sprintf(math_name3,"%s\\%s",date_directory3, math_name3_s);
-	sprintf(math_name4,"%s\\%s",date_directory3, math_name4_s);
-	sprintf(math_name5,"%s\\%s",date_directory3, math_name5_s);
-	sprintf(math_name6,"%s\\%s",date_directory3, math_name6_s);
-	sprintf(math_name7,"%s\\%s",date_directory3, math_name7_s);
-	sprintf(math_name8,"%s\\%s",date_directory3, math_name8_s);
-	sprintf(math_name9,"%s\\%s",date_directory3, math_name9_s);
+	}
 
-	if((fp_innerp=fopen(math_name1,"w"))==NULL){cout<<"入力エラー innerp.csvが開けません";exit(1);}
-	if((fp_V_sqrt=fopen(math_name2,"w"))==NULL){cout<<"入力エラー V_sqrt.csvが開けません";exit(1);}
-	if((fp_Cos_similarity=fopen(math_name3,"w"))==NULL){cout<<"入力エラー Cos_similarity.csvが開けません";exit(1);}
-	if((fp_Angle=fopen(math_name4,"w"))==NULL){cout<<"入力エラー Angle.csvが開けません";exit(1);}
-	if((fp_threshold_high=fopen(math_name5,"w"))==NULL){cout<<"入力エラー threshold_high.csvが開けません";exit(1);}
-	if((fp_use_Rvector_flag=fopen(math_name6,"w"))==NULL){cout<<"入力エラー use_Rvector_flag.csvが開けません";exit(1);}
-	if((fp_use_Rvector_number=fopen(math_name7,"w"))==NULL){cout<<"入力エラー use_Rvector_number.csvが開けません";exit(1);}
-	if((fp_threshold2=fopen(math_name8,"w"))==NULL){cout<<"入力エラー threshold2.csvが開けません";exit(1);}
-	if((fp_threshold=fopen(math_name9,"w"))==NULL){cout<<"入力エラー threshold.csvが開けません";exit(1);}
-	//if((fp_Correction_flag=fopen(math_name10,"w"))==NULL){cout<<"入力エラー Correction_flag.csvが開けません";exit(1);}
-	//if((fp_newfanction=fopen(math_name11,"w"))==NULL){cout<<"入力エラー newfunction.csvが開けません";exit(1);}	//出力増やす用5/7
-	*/
+	//出力するファイルを開く
+  Read_output();
+
   
 ///////////////////////応答電圧のcsvの読み込み//////////////////////////////////////////////////////////////////////////////////////////	
 		i=1;
@@ -406,11 +275,6 @@ if(sd==0){
 		getline(V_270,str_270);	string token_V_270;	istringstream stream_V_270(str_270);
 		getline(V_315,str_315);	string token_V_315;	istringstream stream_V_315(str_315);
 	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 //////////////////////////配列に代入//////////////////////////////////////////////////////////////////////////////////////////////////
 
         while(getline(stream_V_0,token_V_0,',')){	//一行読み取る．V0のみ，繰り返しの範囲指定に用いる
@@ -461,8 +325,10 @@ if(sd==0){
 			
 ///////////////////ここからしばらく大小判定/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 ///////////////////負の閾値判定//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		printf("閾値判定を行います\n");
+		printf("用いる基準ベクトルの判定を行います\n");
+
 ///////////////////////8方向取得のflag(負の閾値)/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		for(count_small=0;count_small<image_x;++count_small){
 			for(count_large=0;count_large<image_y;++count_large){
@@ -760,12 +626,10 @@ if(sd==0){
 
 			//	printf("j=%d:%d,",j,use_Rvector_flag[j]);
 //////////////ファイルへの書き込み(fp_use_Rvector_flag,fp_use_Rvector_number)/////////////////////////////////////////////
-			//if((fp_use_Rvector_flag=fopen(math_name6,"w"))==NULL){cout<<"入力エラー use_Rvector_flag.csvが開けません";exit(1);}
-			//ここでとまる?
+
 			fprintf(fp_use_Rvector_flag,"%d,",use_Rvector_flag);
 			if(j==image_x-1){fprintf(fp_use_Rvector_flag,"\n");}
-			//printf("%s\n",math_name7);
-			//if((fp_use_Rvector_number=fopen(math_name7,"w"))==NULL){cout<<"入力エラー use_Rvector_number.csvが開けません";exit(1);}
+
 			fprintf(fp_use_Rvector_number,"%d,",use_Rvector_number);
 			if(j==image_x-1){fprintf(fp_use_Rvector_number,"\n");}
 			
@@ -825,18 +689,12 @@ if(sd==0){
 
 			
 
-			
-		
 
-			//計算テスト
-			//cout<<"Angle="<<Angle[j]<<endl;
 
 /////////////////////////計算終わり/////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////ファイルへの書き込み(一行ずつ書き込み）////////////////////////////////////////////////////////////////////////
 			
-			
-
 			fprintf(fp_innerp,"%lf,",innerp[j][i]);
 			if(j==image_x-1){fprintf(fp_innerp,"\n");}
 			
@@ -860,14 +718,12 @@ if(sd==0){
 			//if(j==image_width){fprintf(fp_newfunction,"\n");}
 
 			}
-			}
+		}
 			
 
 
 ///////////////////////////書き込み終わり/////////////////////////////////////////////////////////			
-			
-			//}																//閉じ　計算条件付近 "for(j=1;j<image_wide;++j){"
-		//}																	//閉じ　応答電圧のcsvの読み取り付近　"while(getline(V_0,str_0)){"
+
 	//ファイルを閉じる
 	fclose(fp_innerp);
 	fclose(fp_V_sqrt);
@@ -876,45 +732,34 @@ if(sd==0){
 	fclose(fp_threshold_high);
 	fclose(fp_threshold2);
 	fclose(fp_threshold);
-	//fclose(fp_Correction_flag);
-	//fclose(fp_newfunction);													//出力増やす用7/7 + log
 
 ////////////////////////logファイルの作成//////////////////////////////////////////////////////////////////////////
-/*	FILE *fp_date;
+	FILE *fp_date;
 	char filename_log[128];
-	//sprintf(filename_log, "..\\log\\log-%2d-%02d%02d-%02d%02d%02d.txt",pnow->tm_year+1900,pnow->tm_mon + 1,pnow->tm_mday,pnow->tm_hour,pnow->tm_min,pnow->tm_sec);	//logファイル作成のディレクトリ指定
-	sprintf(filename_log, "..\\result_inu\\%2d-%02d%02d-%02d%02d%02d\\log.txt",pnow->tm_year+1900,pnow->tm_mon + 1,pnow->tm_mday,pnow->tm_hour,pnow->tm_min,pnow->tm_sec);	//logファイル作成のディレクトリ指定
+
+	sprintf(filename_log, "%s\\log.txt",date_directory3);	//logファイル作成のディレクトリ指定
 	if((fp_date=fopen(filename_log,"w"))==NULL){printf("logファイルが開けません");exit(1);}
-	fprintf(fp_date,"Time       : %s",date);						//時間
+	fprintf(fp_date,"Time       : %s\n",date);						//時間
 	fprintf(fp_date,"direction  : %d\n",direction_number);			//方向
-	fprintf(fp_date,"curcuit    : %d\n",curcuit_number);						//使用回路
-	//fprintf(fp_date,"property   : %s\n",inputdate_directory1);				//propretyファイル
-	fprintf(fp_date,"Rvector    : %d\n",Rvector_number);						//基準ベクトルの数
-	fprintf(fp_date,"minor_flag : %d\n",minor_flag);							//マイナーナンバー
+	fprintf(fp_date,"curcuit    : %d\n",curcuit_number);			//使用回路
+	//fprintf(fp_date,"property   : %s\n",inputdate_directory1);	//propretyファイル
+	fprintf(fp_date,"Rvector    : %d\n",Rvector_number);			//基準ベクトルの数
+	fprintf(fp_date,"minor_flag : %d\n",minor_flag);				//マイナーナンバー
 	fprintf(fp_date,"Rvector    : %s\n",inputrvector_directory);	//使用したRvectorデータ
 	for(i=1;i<=8;i++){for(j=1;j<=8;j++){fprintf(fp_date,"%lf, ",Rvector[i][j]);}fprintf(fp_date,"\n");}	//使用したRvector
 	fprintf(fp_date,"Rvector *	: %f,%f,%f,%f,%f,%f,%f,%f\n",Rvectormagni[1],Rvectormagni[2],Rvectormagni[3],Rvectormagni[4],Rvectormagni[5],Rvectormagni[6],Rvectormagni[7],Rvectormagni[8]);	//使用したRvectorの倍率
 	fprintf(fp_date,"使用データ : %s\n",inputdate_directory);		//使用した畳み込み済みデータ
-	fprintf(fp_date,"保存先     : %s\n",date_directory);			//保存先
+	fprintf(fp_date,"保存先     : %s\n",date_directory3);			//保存先
 	fclose(fp_date);
 
-	printf("direction  : %d\n",direction_number);						//方向
+	printf("direction  : %d\n",direction_number);					//方向
 	printf("curcuit	   : %d\n",curcuit_number);						//使用回路
 	printf("Rvector	   : %d\n",Rvector_number);						//基準ベクトルの数
 	printf("minor_flag : %d\n",minor_flag);							//マイナーナンバー
 	printf("Rvector    : %s\n",inputrvector_directory);				//使用したRvectorデータ
-	printf("使用データ : %s\n",inputdate_directory);				//使用した畳み込み済みデータ
-	//printf("保存先     : %s\n",date_directory);						//保存先
-	printf("logファイル %s を保存しました\n",filename_log);
+	printf("使用データ : %sのcos類似度計算が終了しました\n",inputdate_directory);				//使用した畳み込み済みデータ
 
-	printf("%d回目処理完了\n",repeat);*/
-	Sleep(1000);
-																	//閉じ"for(int repeat=0;repeat<6;++repeat)"
-	
-	
-	//}
-	}
-	}
+
 	//メモリの開放
 	free_matrix(V0, 0, image_x-1, 0, image_y-1);
 	free_matrix(V45,0, image_x-1, 0, image_y-1);
@@ -924,7 +769,6 @@ if(sd==0){
 	free_matrix(V225,0, image_x-1, 0, image_y-1);
 	free_matrix(V270, 0, image_x-1, 0, image_y-1);
 	free_matrix(V315, 0, image_x-1, 0, image_y-1);
-	//free_matrix(use_Rvector_flag, 0, image_x-1, 0, image_y-1);
 	free_matrix(threshold_low_flag,0, image_x-1, 0, image_y-1);
 	free_matrix(threshold_high_flag, 0, image_x-1, 0, image_y-1);
 	free_matrix(V_sqrt, 0, image_x-1, 0, image_y-1);
@@ -932,11 +776,12 @@ if(sd==0){
 	free_matrix(Angle, 0, image_x-1, 0, image_y-1);
 	free_matrix(innerp, 0, image_x-1, 0, image_y-1);
 
-
 	return 0;
 }
 
+
 void Read_output(){
+///////////////////出力するファイルの設定////////////////////////////////////////////////
 	sprintf(math_name1,"%s\\%s",date_directory3, math_name1_s);
 	sprintf(math_name2,"%s\\%s",date_directory3, math_name2_s);
 	sprintf(math_name3,"%s\\%s",date_directory3, math_name3_s);
@@ -947,6 +792,7 @@ void Read_output(){
 	sprintf(math_name8,"%s\\%s",date_directory3, math_name8_s);
 	sprintf(math_name9,"%s\\%s",date_directory3, math_name9_s);
 
+	//確認
 	if((fp_innerp=fopen(math_name1,"w"))==NULL){cout<<"入力エラー innerp.csvが開けません";exit(1);}
 	if((fp_V_sqrt=fopen(math_name2,"w"))==NULL){cout<<"入力エラー V_sqrt.csvが開けません";exit(1);}
 	if((fp_Cos_similarity=fopen(math_name3,"w"))==NULL){cout<<"入力エラー Cos_similarity.csvが開けません";exit(1);}
@@ -956,12 +802,12 @@ void Read_output(){
 	if((fp_use_Rvector_number=fopen(math_name7,"w"))==NULL){cout<<"入力エラー use_Rvector_number.csvが開けません";exit(1);}
 	if((fp_threshold2=fopen(math_name8,"w"))==NULL){cout<<"入力エラー threshold2.csvが開けません";exit(1);}
 	if((fp_threshold=fopen(math_name9,"w"))==NULL){cout<<"入力エラー threshold.csvが開けません";exit(1);}
-	//if((fp_Correction_flag=fopen(math_name10,"w"))==NULL){cout<<"入力エラー Correction_flag.csvが開けません";exit(1);}
-	//if((fp_newfanction=fopen(math_name11,"w"))==NULL){cout<<"入力エラー newfunction.csvが開けません";exit(1);}	//出力増やす用5/7
+
+
 }
 
 void Rvector_size(){
-	//////////////////////Rvectorの大きさを求めている/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////Rvectorの大きさを求めている(cosに用いる)//////////////////////////////////////////////////////////////////////////////////////////////////////////////
    if(direction_number==8){
 	   for(i=1;i<=8;i++){
 		Rvector_square_sum[i]=Rvector_square[i][1]+Rvector_square[i][2]+Rvector_square[i][3]+Rvector_square[i][4]+Rvector_square[i][5]+Rvector_square[i][6]+Rvector_square[i][7]+Rvector_square[i][8];
@@ -991,7 +837,7 @@ void Rvector_size(){
 
 
 void Rvector_read(){
-	
+	/////////////////基準ベクトルの読み込み/////////////////////////////////////////////
 	
 	sprintf(Input_Rvectormagni_name,"%s%s",inputrvector_directory,Input_Rvectormagniname_s);
 	printf("%s\n",Input_Rvectormagni_name);
@@ -1037,19 +883,7 @@ void Rvector_read(){
 	ifstream Rvector_225(Input_Rvectorname6);
 	ifstream Rvector_270(Input_Rvectorname7);
 	ifstream Rvector_315(Input_Rvectorname8);
-	
 
-	
-	/*
-	Rvector_0.open(Input_Rvectorname1,ios::in);
-	Rvector_45.open(Input_Rvectorname2,ios::in);
-	Rvector_90.open(Input_Rvectorname3,ios::in);
-	Rvector_135.open(Input_Rvectorname4,ios::in);
-	Rvector_180.open(Input_Rvectorname5,ios::in);
-	Rvector_225.open(Input_Rvectorname6,ios::in);
-	Rvector_270.open(Input_Rvectorname7,ios::in);
-	Rvector_315.open(Input_Rvectorname8,ios::in);
-	*/
 	printf("R0:%s\nR45:%s\nR90:%s\nR135:%s\nR180:%s\nR225:%s\nR270:%s\nR315:%s\n",Input_Rvectorname1,Input_Rvectorname2,Input_Rvectorname3,Input_Rvectorname4,Input_Rvectorname5,Input_Rvectorname6,Input_Rvectorname7,Input_Rvectorname8);
 
 	//if(!Rvector_magni){cout<<"入力エラー Rvector_magni.csvがありません";exit(1);}
@@ -1148,9 +982,67 @@ void Rvector_read(){
    Rvector_270.close();
    Rvector_315.close();
    Rvector_magni.close();
-   	
-
+ 
 	Rvector_size();
 }
 
-  
+  /*
+
+	//propertyファイルの読み込み指定
+    std::ifstream propety_dire("..\\property\\simulation17-0613\\property_3k.txt");		//ここだけ入力すればよい
+
+
+    char propety[255];
+	char Allpropety[255];
+	char inputdate_directory1[255];
+	char inputdate_directory2[255];
+	char inputdate_directory3[255];
+	char inputdate_directory4[255];
+	char inputdate_directory5[255];
+	char inputdate_directory6[255];			//繰返し数を増やしたい1/4
+
+
+	//プロパティtxtファイルの読み込み
+    if (propety_dire.fail())
+    {
+        printf("propertyテキストを読み取ることができません\n");
+        return -1;
+    }
+    while (propety_dire.getline(propety, 256 - 1))
+    {
+
+		if(count_property==0)sprintf(Allpropety,propety);
+		if(count_property==1)sprintf(inputrvector_directory,propety);
+		if(count_property==2)sprintf(inputdate_directory1,propety);
+		if(count_property==3)sprintf(inputdate_directory2,propety);
+		if(count_property==4)sprintf(inputdate_directory3,propety);
+		if(count_property==5)sprintf(inputdate_directory4,propety);
+		if(count_property==6)sprintf(inputdate_directory5,propety);
+		if(count_property==7)sprintf(inputdate_directory6,propety);			//繰返し数を増やしたい2/4
+
+		++count_property;
+    }
+
+	//プロパティtxtファイルの一行目を文字列から数値に変換して関数に代入
+	std::string tmp_Allpropety;
+	std::istringstream stream_Allpropety(Allpropety);
+	while(getline(stream_Allpropety,tmp_Allpropety,',')){
+
+		int All_tmp_property=stof(tmp_Allpropety); //stof(string str) : stringをintに変換
+		All_property[count_Allproperty]=All_tmp_property;
+
+		if(count_Allproperty==0)image_width=All_property[count_Allproperty];
+		if(count_Allproperty==1)direction_number=All_property[count_Allproperty];
+		if(count_Allproperty==2)curcuit_number=All_property[count_Allproperty];
+		if(count_Allproperty==3)Rvector_number=All_property[count_Allproperty];
+		if(count_Allproperty==4)minor_flag=All_property[count_Allproperty];
+
+		++count_Allproperty;
+	}
+
+	image_x=image_width+1;				//入力画像の横幅+1
+	/*
+	printf("direction_number=%d\n",direction_number);
+	printf("curcuit_number=%d\n",curcuit_number);
+	printf("Rvector_number=%d\n",Rvector_number);
+	printf("minor_flag=%d\n",minor_flag);*/

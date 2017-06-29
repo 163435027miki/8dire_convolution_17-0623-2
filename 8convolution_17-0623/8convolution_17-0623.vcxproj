@@ -137,11 +137,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="arctan.cpp" />
+    <ClCompile Include="convolution.cpp" />
     <ClCompile Include="cos-sim.cpp" />
     <ClCompile Include="cos-sim_result_rows.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="make_image.cpp" />
     <ClCompile Include="Nrutil.cpp" />
+    <ClCompile Include="time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nrutil.h" />

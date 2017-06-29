@@ -3,14 +3,16 @@
 #include<sstream> //文字ストリーム
 
 
-int timeset(char date_directory[]){
+int timeset(char date[]){
 //実行日時の表示
+	//実行時間の取得
 	time_t now = time(NULL);
-    struct tm *pnow = localtime(&now);
-	char date[128]="";
-	sprintf(date,"%2d/%2d/%2d - %d:%d:%d\n",pnow->tm_year+1900,pnow->tm_mon + 1,pnow->tm_mday,pnow->tm_hour,pnow->tm_min,pnow->tm_sec);
+	struct tm *pnow = localtime(&now);
+	
+	sprintf(date, "%2d-%02d%02d-%02d%02d%02d", pnow->tm_year + 1900, pnow->tm_mon + 1, pnow->tm_mday, pnow->tm_hour, pnow->tm_min, pnow->tm_sec);
 	printf(date);
-
+	return *date;
+	/*
 	//結果を保存するフォルダの生成
 	//フォルダ名は実行日時になる
 	//char date_directory[128];
@@ -21,8 +23,9 @@ int timeset(char date_directory[]){
         printf("フォルダ作成に失敗しました。\n");
     }
 	 return date_directory[128];
+	 */
 }
-
+/*
 int log_create(char date_directory[],int cols,int rows,double sin_frequency,double degree,int step,int bold){
 	FILE *fp_date;
 	char log_directry[128];
@@ -35,4 +38,4 @@ int log_create(char date_directory[],int cols,int rows,double sin_frequency,doub
 	fclose(fp_date);
 
 	return 0;
-}
+}*/

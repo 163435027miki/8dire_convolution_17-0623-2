@@ -16,21 +16,21 @@
 #define PI 3.14159265
 
 using namespace std;
-//char date_directory[128];
-//FILE *fp_Angle_C,*fp_threshold2_C,*fp_Angle_A,*fp_threshold2_A;	//入力ファイル
 FILE *fp_Angle_Summary,*fp_threshold2_Summary,*fp_Angle_Summary_A,*fp_threshold2_Summary_A;	//出力ファイル
-//if((fp_arctan=fopen(math_name1,"w"))==NULL){cout<<"入力エラー arctan.csvが開けません";exit(1);//
 int timeset(char date_directory[]);
 
-int cossim_result_row(char date_directory[], int image_x, int image_y){
+int first_entry_cossim_result_rows=0;
+
+int cossim_result_row(char date_directory[], int image_x, int image_y,int paramerter[],int paramerter_count_max,int sd_max){
+	++first_entry_cossim_result_rows;
+
 	printf("cossim_result_row\n");
 	printf("image_x=%d,image_y=%d\n",image_x,image_y);
-	//sprintf(date_directory,"..\\result_usa\\2017-0627-112941\\");
 	int rows;	//行	
 	int cols;	//列
 	int read_rows_stard=120;	//1からスタート
 	int read_rows_goal=125;
-	int sd;
+	//int sd;
 	int i,j,k,l;
 	int count_rows=0,count_cols=0;
 	string str_Angle_C,str_threshold2_C,str_Angle_A,str_threshold2_A;
@@ -71,23 +71,7 @@ int cossim_result_row(char date_directory[], int image_x, int image_y){
 				}
 	}
 	
-	/*
-	//配列の動的確保
-	std::vector<std::vector<double>>Angle;
-	std::vector<std::vector<double>>threshold2;
-	std::vector<std::vector<double>>Angle_A;
-	std::vector<std::vector<double>>threshold2_A;
-	Angle.resize(rows+1);
-	threshold2.resize(rows+1);
-	Angle_A.resize(rows+1);
-	threshold2_A.resize(rows+1);
-	for(i=0;i<=rows;++i){
-		Angle[i].resize(cols+1);
-		threshold2[i].resize(cols+1);
-		Angle_A[i].resize(cols+1);
-		threshold2_A[i].resize(cols+1);
-	}
-	*/
+	
 	sprintf(outputfile_directry1,"%sAngle_Summary_C.csv",date_directory);
 	sprintf(outputfile_directry2,"%sthresholds_Summary_C.csv",date_directory);
 	sprintf(outputfile_directry3,"%sAngle_Summary_A.csv",date_directory);
@@ -98,21 +82,16 @@ int cossim_result_row(char date_directory[], int image_x, int image_y){
 	if((fp_Angle_Summary_A=fopen(outputfile_directry3,"w"))==NULL){cout<<"入力エラー Angle_Summary_C.csvが開けません";exit(1);}
 	if((fp_threshold2_Summary_A=fopen(outputfile_directry4,"w"))==NULL){cout<<"入力エラー threshold2_Summary_C.csvが開けません";exit(1);}
 	
-
-	for(j=0;j<3;++j){
-		for(i=0;i<6;++i){
+	for(j=0;j<paramerter_count_max;++j){
+		for(i=0;i<=sd_max;i=i+10){
 
 			count_cols=0;
-			sd=i*10;
-			sprintf(inputfile_directry1,"%s%d%s_cossim_sd%d\\Angle.csv",date_directory,filename_head[j],filename_headchar,sd);
-			sprintf(inputfile_directry2,"%s%d%s_cossim_sd%d\\threshold2.csv",date_directory,filename_head[j],filename_headchar,sd);
-			sprintf(inputfile_directry3,"%s%d%s_atan_sd%d\\arctan.csv",date_directory,filename_head[j],filename_headchar,sd);
-			sprintf(inputfile_directry4,"%s%d%s_atan_sd%d\\threshold2.csv",date_directory,filename_head[j],filename_headchar,sd);
+			sprintf(inputfile_directry1,"%s%d%s_cossim_sd%d\\Angle.csv",date_directory,paramerter[j],filename_headchar,i);
+			sprintf(inputfile_directry2,"%s%d%s_cossim_sd%d\\threshold2.csv",date_directory,paramerter[j],filename_headchar,i);
+			sprintf(inputfile_directry3,"%s%d%s_atan_sd%d\\arctan.csv",date_directory,paramerter[j],filename_headchar,i);
+			sprintf(inputfile_directry4,"%s%d%s_atan_sd%d\\threshold2.csv",date_directory,paramerter[j],filename_headchar,i);
 
-			//sprintf(inputfile_directry1,"..\\input_data\\%s\\atan\\%d%s_atan_sd%d\\arctan.csv",simulation_name,filename_head[j],filename_headchar,sd);
-			//sprintf(inputfile_directry2,"..\\input_data\\%s\\atan\\%d%s_atan_sd%d\\threshold2.csv",simulation_name,filename_head[j],filename_headchar,sd);
-			//sprintf(inputfile_directry1,"..\\input_data\\%s\\atan_Bazel\\%d%s_atanB_sd%d\\arctan.csv",simulation_name,filename_head[j],filename_headchar,sd);
-			//sprintf(inputfile_directry2,"..\\input_data\\%s\\atan_Bazel\\%d%s_atanB_sd%d\\threshold2.csv",simulation_name,filename_head[j],filename_headchar,sd);
+
 
 			lengh_inputfile_directry1=strlen(inputfile_directry1);
 			lengh_inputfile_directry2=strlen(inputfile_directry2);
@@ -197,10 +176,10 @@ int cossim_result_row(char date_directory[], int image_x, int image_y){
 				
 				if(k>=read_rows_stard-1 && k<read_rows_goal){
 					
-					fprintf(fp_Angle_Summary,"%d%s_cossim_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
-					fprintf(fp_threshold2_Summary,"%d%s_cossim_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
-					fprintf(fp_Angle_Summary_A,"%d%s_atan_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
-					fprintf(fp_threshold2_Summary_A,"%d%s_atan_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
+					fprintf(fp_Angle_Summary,"%d%s_cossim_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
+					fprintf(fp_threshold2_Summary,"%d%s_cossim_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
+					fprintf(fp_Angle_Summary_A,"%d%s_atan_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
+					fprintf(fp_threshold2_Summary_A,"%d%s_atan_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
 					//fprintf(fp_Angle_Summary,"%d%s_atanB_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
 					//fprintf(fp_threshold2_Summary,"%d%s_atanB_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
 					
@@ -209,7 +188,7 @@ int cossim_result_row(char date_directory[], int image_x, int image_y){
 						fprintf(fp_threshold2_Summary,"%f,",threshold2_C[l][k]);
 						fprintf(fp_Angle_Summary_A,"%f,",Angle_A[l][k]);
 						fprintf(fp_threshold2_Summary_A,"%f,",threshold2_A[l][k]);
-						//printf("ここ");
+						
 						if(l==rows-1){
 							fprintf(fp_Angle_Summary,"\n");
 							fprintf(fp_threshold2_Summary,"\n");
@@ -222,8 +201,7 @@ int cossim_result_row(char date_directory[], int image_x, int image_y){
 
 			}
 
-			//fclose(fp_Angle);
-			//fclose(fp_threshold2);
+			
 			//memset関数で初期化
 			memset( inputfile_directry1 , '\0' , lengh_inputfile_directry1 );
 			memset( inputfile_directry2 , '\0' , lengh_inputfile_directry2 );

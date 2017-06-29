@@ -35,8 +35,11 @@ void make_bmp(char date_directory2[],char Filename1[],int image_x,int image_y,in
 
 void convolution(int image_y,int image_x,int fs, int hfs,double *output1[],double *spfil1[],double *input_bmp[],double magnification);
 void write_file(char *Filename,int image_x,int image_y,double *output1[],int Rvector_create,int Rvector_pointX,int Rvector_pointY,double Rvector[],int Rvector_number);
-int cossim(char date_directory[],int image_x,int image_y);
+
 void Rvector_size();
+
+
+
 
 
 
