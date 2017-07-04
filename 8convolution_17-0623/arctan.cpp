@@ -72,7 +72,14 @@ int arctan(char date_directory[], int image_x, int image_y,int paramerter[],int 
 	int count_small = 0, count_large = 0;
 
 	////////////////////////////入出力ディレクトリの作成//////////////////////////////////////////////////////////////////////////////
-	sprintf(inputdate_directory_atan, "%s%dk_conv_sd%d", date_directory, paramerter[paramerter_count], sd);
+
+	if(paramerter[0]==1){
+		sprintf(inputdate_directory_atan, "%s%d×%dsobel_conv_sd%d", date_directory, paramerter[paramerter_count],paramerter[paramerter_count], sd);
+			}else{
+		sprintf(inputdate_directory_atan, "%s%dk_conv_sd%d", date_directory, paramerter[paramerter_count], sd);
+
+	}
+	
 	//Input
 	sprintf(Input_Filename_atan1, "%s%s", inputdate_directory_atan, Input_Filename_atan1_s);
 	sprintf(Input_Filename_atan3, "%s%s", inputdate_directory_atan, Input_Filename_atan3_s);

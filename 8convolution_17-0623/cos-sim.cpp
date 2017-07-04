@@ -180,6 +180,7 @@ int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int pa
 			}
 	
 	sprintf(inputdate_directory,"%s%dk_conv_sd%d",date_directory,paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
+	//sprintf(inputdate_directory,"%s%d×%dsobel_conv_sd%d",date_directory,paramerter[paramerter_count],paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
 	printf("inputdata：%s\n",inputdate_directory);
 
 	//for(int repeat=0;repeat<6;++repeat){			//繰返し数を増やしたい3/4
@@ -199,7 +200,11 @@ int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int pa
 	sprintf(Input_Filename7,"%s%s",inputdate_directory,Input_Filename7_s);
 	sprintf(Input_Filename8,"%s%s",inputdate_directory,Input_Filename8_s);
 
-	sprintf(date_directory3, "%s%dk_cossim_sd%d",date_directory, paramerter[paramerter_count],sd);
+	if(paramerter[0]==1){
+		sprintf(date_directory3, "%s%d×%dsobel_cossim_sd%d",date_directory, paramerter[paramerter_count],paramerter[paramerter_count],sd);	
+			}else{
+		sprintf(date_directory3, "%s%dk_cossim_sd%d",date_directory, paramerter[paramerter_count],sd);
+	}
 	if (_mkdir(date_directory3) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory3);
 	}

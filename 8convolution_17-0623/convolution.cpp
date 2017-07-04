@@ -89,8 +89,8 @@ void convolution(int argc, char** argv,char image_nameP2[],int image_x,int image
 ///////////////////////////////初期設定1 : 入力画像指定//////////////////////////////////////////////////////////////////////////////////////
 
 	//基準ベクトルを取得するときはこちら
-	int filter_number = 315;
-	sprintf(Rvector_Filename, "%s\\Rvector%d.csv", Rvector_directory, filter_number);
+	//int filter_number = 0;
+	//sprintf(Rvector_Filename, "%s\\Rvector%d.csv", Rvector_directory, filter_number);
 	//フィルタ演算，基準ベクトル作成するときのみ指定．ここを変更する
 	/*	char propety_dire_char[128];
 	sprintf(propety_dire_char,"..\\property_usa\\simulation17-0203\\Rvector\\8dire_100k\\property_8dire_100k_I~%d.txt",filter_number);
@@ -310,7 +310,11 @@ void set_outputfile(char date[],char date_directory[],int paramerter[],int param
 		printf("フォルダ作成に失敗しました。もしくは作成済みです\n");
 	}
 
-	sprintf(date_directory2, "%s%dk_conv_sd%d\\", date_directory,paramerter[paramerter_count],sd);
+	if(paramerter[0]==1){
+		sprintf(date_directory2, "%s%d×%dsobel_conv_sd%d\\", date_directory,paramerter[paramerter_count],paramerter[paramerter_count],sd);		
+			}else{
+		sprintf(date_directory2, "%s%dk_conv_sd%d\\", date_directory,paramerter[paramerter_count],sd);
+	}
 	if (_mkdir(date_directory2) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory2);
 	}

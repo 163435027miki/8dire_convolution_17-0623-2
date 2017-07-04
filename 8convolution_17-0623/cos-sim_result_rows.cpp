@@ -22,6 +22,8 @@ int timeset(char date_directory[]);
 int first_entry_cossim_result_rows=0;
 
 int cossim_result_row(char date_directory[], int image_x, int image_y,int paramerter[],int paramerter_count_max,int sd_max){
+
+	printf("ƒf[ƒ^‚ÌWŒv‚ğs‚¢‚Ü‚·\n");
 	++first_entry_cossim_result_rows;
 
 	printf("cossim_result_row\n");
@@ -36,7 +38,6 @@ int cossim_result_row(char date_directory[], int image_x, int image_y,int parame
 	string str_Angle_C,str_threshold2_C,str_Angle_A,str_threshold2_A;
 
 	int filename_head[3]={3,10,100};
-	char filename_headchar[3]="k";
 	char simulation_name[128]="simulation17-0622";
 	char inputfile_directry1[128];
 	char inputfile_directry2[128];
@@ -82,15 +83,23 @@ int cossim_result_row(char date_directory[], int image_x, int image_y,int parame
 	if((fp_Angle_Summary_A=fopen(outputfile_directry3,"w"))==NULL){cout<<"“ü—ÍƒGƒ‰[ Angle_Summary_C.csv‚ªŠJ‚¯‚Ü‚¹‚ñ";exit(1);}
 	if((fp_threshold2_Summary_A=fopen(outputfile_directry4,"w"))==NULL){cout<<"“ü—ÍƒGƒ‰[ threshold2_Summary_C.csv‚ªŠJ‚¯‚Ü‚¹‚ñ";exit(1);}
 	
-	for(j=0;j<paramerter_count_max;++j){
+	for(j=1;j<=paramerter_count_max;++j){
 		for(i=0;i<=sd_max;i=i+10){
 
 			count_cols=0;
-			sprintf(inputfile_directry1,"%s%d%s_cossim_sd%d\\Angle.csv",date_directory,paramerter[j],filename_headchar,i);
-			sprintf(inputfile_directry2,"%s%d%s_cossim_sd%d\\threshold2.csv",date_directory,paramerter[j],filename_headchar,i);
-			sprintf(inputfile_directry3,"%s%d%s_atan_sd%d\\arctan.csv",date_directory,paramerter[j],filename_headchar,i);
-			sprintf(inputfile_directry4,"%s%d%s_atan_sd%d\\threshold2.csv",date_directory,paramerter[j],filename_headchar,i);
 
+			if(paramerter[0]==1){
+						sprintf(inputfile_directry1,"%s%d~%dsobel_cossim_sd%d\\Angle.csv",date_directory,paramerter[j],paramerter[j],i);
+						sprintf(inputfile_directry2,"%s%d~%dsobel_cossim_sd%d\\threshold2.csv",date_directory,paramerter[j],paramerter[j],i);
+						sprintf(inputfile_directry3,"%s%d~%dsobel_atan_sd%d\\arctan.csv",date_directory,paramerter[j],paramerter[j],i);
+						sprintf(inputfile_directry4,"%s%d~%dsobel_atan_sd%d\\threshold2.csv",date_directory,paramerter[j],paramerter[j],i);
+				
+					}else{
+						sprintf(inputfile_directry1,"%s%dk_cossim_sd%d\\Angle.csv",date_directory,paramerter[j],i);
+						sprintf(inputfile_directry2,"%s%dk_cossim_sd%d\\threshold2.csv",date_directory,paramerter[j],i);
+						sprintf(inputfile_directry3,"%s%dk_atan_sd%d\\arctan.csv",date_directory,paramerter[j],i);
+						sprintf(inputfile_directry4,"%s%dk_atan_sd%d\\threshold2.csv",date_directory,paramerter[j],i);
+			}
 
 
 			lengh_inputfile_directry1=strlen(inputfile_directry1);
@@ -137,7 +146,7 @@ int cossim_result_row(char date_directory[], int image_x, int image_y,int parame
 					Angle_C[count_rows][count_cols]=tmp_Angle_C;
 				
 					getline(stream_Angle_A,token_Angle_A,',');
-					double tmp_Angle_A=stof(token_Angle_A);//•¶š‚ğ”š‚É•ÏŠ·	ŒÂX‚ªˆ«‚¢
+					double tmp_Angle_A=stof(token_Angle_A);//•¶š‚ğ”š‚É•ÏŠ·
 					Angle_A[count_rows][count_cols]=tmp_Angle_A;
 					
 
@@ -176,12 +185,20 @@ int cossim_result_row(char date_directory[], int image_x, int image_y,int parame
 				
 				if(k>=read_rows_stard-1 && k<read_rows_goal){
 					
-					fprintf(fp_Angle_Summary,"%d%s_cossim_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
-					fprintf(fp_threshold2_Summary,"%d%s_cossim_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
-					fprintf(fp_Angle_Summary_A,"%d%s_atan_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
-					fprintf(fp_threshold2_Summary_A,"%d%s_atan_sd%d_%d,",filename_head[j],filename_headchar,i,k+1);
-					//fprintf(fp_Angle_Summary,"%d%s_atanB_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
-					//fprintf(fp_threshold2_Summary,"%d%s_atanB_sd%d_%d,",filename_head[j],filename_headchar,sd,k+1);
+					if(paramerter[0]==1){
+						fprintf(fp_Angle_Summary,"%d~%dsobel_cossim_sd%d_%d,",paramerter[j],paramerter[j],i,k+1);
+						fprintf(fp_threshold2_Summary,"%d~%dsobel_cossim_sd%d_%d,",paramerter[j],paramerter[j],i,k+1);
+						fprintf(fp_Angle_Summary_A,"%d~%dsobel_atan_sd%d_%d,",paramerter[j],paramerter[j],i,k+1);
+						fprintf(fp_threshold2_Summary_A,"%d~%dsobel_atan_sd%d_%d,",paramerter[j],paramerter[j],i,k+1);
+				
+					}else{
+						fprintf(fp_Angle_Summary,"%d_cossim_sd%d_%d,",paramerter[j],i,k+1);
+						fprintf(fp_threshold2_Summary,"%d_cossim_sd%d_%d,",paramerter[j],i,k+1);
+						fprintf(fp_Angle_Summary_A,"%d_atan_sd%d_%d,",paramerter[j],i,k+1);
+						fprintf(fp_threshold2_Summary_A,"%d_atan_sd%d_%d,",paramerter[j],i,k+1);
+					}
+					//fprintf(fp_Angle_Summary,"%d_atanB_sd%d_%d,",filename_head[j],sd,k+1);
+					//fprintf(fp_threshold2_Summary,"%d_atanB_sd%d_%d,",filename_head[j],sd,k+1);
 					
 					for(l=0;l<rows;++l){
 						fprintf(fp_Angle_Summary,"%f,",Angle_C[l][k]);

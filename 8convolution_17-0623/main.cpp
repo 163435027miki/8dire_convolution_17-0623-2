@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int image_x=256, image_y=256;		//画像サイズ
+int image_x=120, image_y=120;		//画像サイズ
 char date[128] = "";
 //出力ファイルディレクトリ
 char date_directory[128];
@@ -33,21 +33,29 @@ int main(int argc, char** argv){
 
 	timeset(date);
 
-	int paramerter[3]={3,10,100};
+	int paramerter[4]={1,5,5,7};		//paramerter[0]=1でsobelフィルタ
 	int paramerter_count=0;
-	for(int paramerter_count=0;paramerter_count<3;++paramerter_count){
-		for(sd=0;sd<=50;sd=sd+10){
+	for(int paramerter_count=1;paramerter_count<=1;++paramerter_count){
+		for(sd=0;sd<=315;sd=sd+45){
 		
-			sprintf(image_nameP,"..\\property_usa\\simulation17-0616_circle-2\\property_%dk_conv_",paramerter[paramerter_count]);
-			sprintf(image_nameP2,"%ssd%d.txt",image_nameP,sd);
+			if(paramerter[0]==1){
+				sprintf(image_nameP,"..\\property_usa\\simulation17-0704_sobel\\property_%d×%dsobel_conv_sd0\\",paramerter[paramerter_count],paramerter[paramerter_count]);
+			}else{
+				sprintf(image_nameP,"..\\property_usa\\simulation17-0616_circle-2\\property_%dk_conv_",paramerter[paramerter_count]);
+			}
+				//sprintf(image_nameP2,"%ssd%d.txt",image_nameP,sd);
+			sprintf(image_nameP2,"%sproperty_%d×%dsobel_conv_IT%d.txt",image_nameP,paramerter[paramerter_count],paramerter[paramerter_count],sd);
 
 			convolution(argc, argv,image_nameP2,image_x,image_y,paramerter,paramerter_count,sd,date,date_directory);
-			cossim(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
-			arctan(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
+			//cossim(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
+			//arctan(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
+
 		}
 	}
 
-	cossim_result_row(date_directory, image_x ,image_y,paramerter,paramerter_count_max,sd_max);
+	//cossim_result_row(date_directory, image_x ,image_y,paramerter,paramerter_count_max,sd_max);
+
+	printf("全ての処理が終了しました\n");
 	
 	return 0;
 
