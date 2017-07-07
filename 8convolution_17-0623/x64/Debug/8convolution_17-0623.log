@@ -1,4 +1,4 @@
-﻿2017/07/04 15:34:25 にビルドを開始しました。
+﻿2017/07/05 11:59:48 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "D:\desktop_program\8dire_convolution_17-0623\8convolution_17-0623\8convolution_17-0623.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "x64\Debug\8convolution_17-0623.unsuccessfulbuild" を作成しています。
@@ -12,7 +12,7 @@
      1>D:\opencv-3.1.0-vc10\build\install\include\opencv2/core/utility.hpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
      1>main.cpp(42): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>main.cpp(44): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(45): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
      1>main.cpp(47): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
@@ -42,4 +42,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:01.01
+経過時間 00:00:00.87
