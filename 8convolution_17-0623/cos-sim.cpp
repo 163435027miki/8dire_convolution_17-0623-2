@@ -128,7 +128,7 @@ int i,j;
 	void Rvector_read();
 	void Read_output();
 
-int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int paramerter_count,int sd,char date[]){
+int cossim(char date_directory[],int &image_x,int &image_y,int paramerter[],int paramerter_count,int sd,char date[]){
 	printf("****************************************\n");
 	printf("start： cos-sim\n");
 	printf("****************************************\n");
@@ -179,8 +179,13 @@ int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int pa
 				}
 			}
 	
-	sprintf(inputdate_directory,"%s%dk_conv_sd%d",date_directory,paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
-	//sprintf(inputdate_directory,"%s%d×%dsobel_conv_sd%d",date_directory,paramerter[paramerter_count],paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
+			if(paramerter[0]==1){
+				sprintf(inputdate_directory,"%s%d×%dsobel_conv_sd%d",date_directory,paramerter[paramerter_count],paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
+			}else{
+				sprintf(inputdate_directory,"%s%dk_conv_sd%d",date_directory,paramerter[paramerter_count],sd);	//入力する畳み込み結果の名前
+			}
+	
+	
 	printf("inputdata：%s\n",inputdate_directory);
 
 	//for(int repeat=0;repeat<6;++repeat){			//繰返し数を増やしたい3/4
@@ -241,7 +246,12 @@ int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int pa
 /////////////////////////出力ファイルを開く///////////////////////////////////////////////////////////////////////////////////
 
 	if(sd==0){
-		sprintf(inputrvector_directory,"..\\Rvector\\8dire_%dk_0203",paramerter[paramerter_count]);
+	
+		if(paramerter[0]==1){sprintf(inputrvector_directory,"..\\Rvector\\%d×%dsobel_under",paramerter[paramerter_count],paramerter[paramerter_count]);
+
+		}else{
+			sprintf(inputrvector_directory,"..\\Rvector\\8dire_%dk_0203",paramerter[paramerter_count]);
+		}
 
 		//基準ベクトルの読み込み
 		Rvector_read();
@@ -556,7 +566,7 @@ int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int pa
 
 
 ////////////////////break条件を記す//////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/*	if(count_small==image_x){
+		/*	if(count_small==&image_x){
 				count_large++;
 				break;
 				}
@@ -743,6 +753,7 @@ int cossim(char date_directory[],int image_x,int image_y,int paramerter[],int pa
 	char filename_log[128];
 
 	sprintf(filename_log, "%s\\log.txt",date_directory3);	//logファイル作成のディレクトリ指定
+	printf("%s\n",filename_log);	//logファイル作成のディレクトリ指定
 	if((fp_date=fopen(filename_log,"w"))==NULL){printf("logファイルが開けません");exit(1);}
 	fprintf(fp_date,"Time       : %s\n",date);						//時間
 	fprintf(fp_date,"direction  : %d\n",direction_number);			//方向
@@ -1045,7 +1056,7 @@ void Rvector_read(){
 		++count_Allproperty;
 	}
 
-	image_x=image_width+1;				//入力画像の横幅+1
+	&image_x=image_width+1;				//入力画像の横幅+1
 	/*
 	printf("direction_number=%d\n",direction_number);
 	printf("curcuit_number=%d\n",curcuit_number);

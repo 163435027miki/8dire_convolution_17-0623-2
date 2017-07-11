@@ -27,7 +27,7 @@ int x, y, fx, fy;
 FILE *fp;
 
 //property関係_変数
-//int image_x, image_y;		//画像サイズ
+//int &image_x, &image_y;		//画像サイズ
 int Rvector_create;		//1なら基準ベクトルを作る
 int Rvector_pointX;		//基準ベクトルを作成する位置.0をスタートで考える
 int Rvector_pointY;		//特殊な指定をする場合は下へ
@@ -78,12 +78,14 @@ char date_directory2[128];
 char outputbmp_directory[128];
 
 
-void read_property(ifstream &propety_dire,int image_x,int image_y);
+void read_property(ifstream &propety_dire,int &image_x,int &image_y,int &fs);
 void Rvector_createF();
 void set_outputfile(char date[],char date_directory[],int paramerter[],int paramerter_count,int sd);
 void read_filter(char inputfilter_directory[],int fs,double *spfil1[]);
 
-void convolution(int argc, char** argv,char image_nameP2[],int image_x,int image_y,int paramerter[],int paramerter_count,int sd,char date[],char date_directory[]) {
+//void convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &image_y,int paramerter[],int paramerter_count,int sd,char date[],char date_directory[]) {
+int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &image_y,int paramerter[],int paramerter_count,int sd,char date[],char date_directory[]) {
+
 
 	//std::ifstream propety_dire("..\\property_usa\\simulation17-0613\\property_3k_conv_sd0.txt");
 ///////////////////////////////初期設定1 : 入力画像指定//////////////////////////////////////////////////////////////////////////////////////
@@ -127,8 +129,10 @@ void convolution(int argc, char** argv,char image_nameP2[],int image_x,int image
 	
 	std::ifstream propety_dire;
 	propety_dire.open(image_nameP2,ios::in);
+
+	
 			
-	read_property(propety_dire,image_x,image_y);
+	read_property(propety_dire,image_x,image_y,fs);
 	
 	sprintf(InputImage, inputimage_directory);	//propertyから読み取った入力画像情報を代入
 	
@@ -281,7 +285,7 @@ void convolution(int argc, char** argv,char image_nameP2[],int image_x,int image
 
 	printf("finish：convolution\n");
 
-return ;
+//return ;
 	
 }
 
@@ -365,7 +369,7 @@ void Rvector_createF(){
 }
 
 
-void read_property(ifstream &propety_dire,int image_x,int image_y){
+void read_property(ifstream &propety_dire,int &image_x,int &image_y,int &fs){
 
 	count_property=0;
 
@@ -394,6 +398,8 @@ void read_property(ifstream &propety_dire,int image_x,int image_y){
 	//プロパティtxtファイルの一行目を文字列から数値に変換して関数に代入
 	std::string tmp_Allpropety;
 	std::istringstream stream_Allpropety(Allpropety);
+	count_Allproperty=0;
+
 	while (getline(stream_Allpropety, tmp_Allpropety, ',')) {
 
 		int All_tmp_property = stof(tmp_Allpropety); //stof(string str) : stringをintに変換
@@ -401,8 +407,8 @@ void read_property(ifstream &propety_dire,int image_x,int image_y){
 
 
 ////////////////property.txtの一行目///////////////////////////////////////////////////////////
-		if (count_Allproperty == 0)image_x = All_property[count_Allproperty];				//image_x:画像の横サイズ,max_x:画像の横サイズ-1
-		if (count_Allproperty == 1)image_y = All_property[count_Allproperty];				//image_y:画像の縦サイズ,max_y:画像の縦サイズ-1
+		if (count_Allproperty == 0)image_x = All_property[count_Allproperty];				//&image_x:画像の横サイズ,max_x:画像の横サイズ-1
+		if (count_Allproperty == 1)image_y = All_property[count_Allproperty];				//&image_y:画像の縦サイズ,max_y:画像の縦サイズ-1
 		if (count_Allproperty == 2)Rvector_create = All_property[count_Allproperty];		//Rvector_create:1なら基準ベクトルを作成．この場合初期設定2を設定すること
 		if (count_Allproperty == 3)Rvector_pointX = All_property[count_Allproperty];		//Rvector_pointX:基準ベクトル取得X座標．0からスタート
 		if (count_Allproperty == 4)Rvector_pointY = All_property[count_Allproperty];		//Rvector_pointY:基準ベクトル取得Y座標．0からスタート
@@ -435,7 +441,7 @@ void read_filter(char inputfilter_directory[],int fs,double *spfil1[]){
 }
 
 ///////////////////////畳み込み結果の書き込み////////////////////////////////////////
-void write_file(char *Filename,int image_x,int image_y,double *output1[],int Rvector_create,int Rvector_pointX,int Rvector_pointY,double Rvector[],int Rvector_number){
+void write_file(char *Filename,int &image_x,int &image_y,double *output1[],int Rvector_create,int Rvector_pointX,int Rvector_pointY,double Rvector[],int Rvector_number){
 
 	//------------------------ファイルへの書き込み--------------------------//
 	if ((fp = fopen(Filename, "w")) == NULL){
@@ -471,7 +477,7 @@ void write_file(char *Filename,int image_x,int image_y,double *output1[],int Rve
 }
 
 ///////////////////////畳み込み演算//////////////////////////////////////////////////
-void convolution(int image_y,int image_x,int fs, int hfs,double *output1[],double *spfil1[],double *input_bmp[],double magnification){
+void convolution(int &image_y,int &image_x,int fs, int hfs,double *output1[],double *spfil1[],double *input_bmp[],double magnification){
 
 	for (y = 0; y < image_y; y++) {
 		for (x = 0; x < image_x; x++) {

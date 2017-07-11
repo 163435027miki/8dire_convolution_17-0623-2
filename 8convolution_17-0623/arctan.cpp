@@ -43,7 +43,7 @@ double threshold_atan_high_abs;
 FILE *fp_arctan, *fp_threshold_atan_low, *fp_threshold_atan_high, *fp_atan_threshold2;
 
 
-int arctan(char date_directory[], int image_x, int image_y,int paramerter[],int paramerter_count,int sd,char date[]){
+int arctan(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count,int sd,char date[]){
 
 	printf("****************************************\n");
 	printf("start： atan\n");
@@ -86,7 +86,12 @@ int arctan(char date_directory[], int image_x, int image_y,int paramerter[],int 
 
 	printf("Input_Filename_atan1=%s\n", Input_Filename_atan1);
 
-	sprintf(date_directory4, "%s%dk_atan_sd%d", date_directory, paramerter[paramerter_count], sd);
+	if(paramerter[0]==1){
+		sprintf(date_directory4, "%s%d×%dsobel_atan_sd%d", date_directory, paramerter[paramerter_count],paramerter[paramerter_count], sd);
+	}else{
+		sprintf(date_directory4, "%s%dk_atan_sd%d", date_directory, paramerter[paramerter_count], sd);
+	}
+
 	if (_mkdir(date_directory4) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory4);
 	}
@@ -251,7 +256,7 @@ int arctan(char date_directory[], int image_x, int image_y,int paramerter[],int 
 
 	sprintf(filename_log, "%s\\log.txt",date_directory4);	//logファイル作成のディレクトリ指定
 	if((fp_date=fopen(filename_log,"w"))==NULL){printf("logファイルが開けません");exit(1);}
-	fprintf(fp_date,"Time       : %s",date);						//時間
+	fprintf(fp_date,"Time       : %s\n",date);						//時間
 	fprintf(fp_date,"使用データ : %s\n",inputdate_directory_atan);		//使用した畳み込み済みデータ
 	fprintf(fp_date,"保存先     : %s\n",date_directory);			//保存先
 	fclose(fp_date);

@@ -33,7 +33,7 @@ char use_name[128];
 
 
 
-void make_bmp(char date_directory2[],char Filename1[],int image_x,int image_y,int make_image_repeat,int Save_image_flag[][9]) {
+void make_bmp(char date_directory2[],char Filename1[],int &image_x,int &image_y,int make_image_repeat,int Save_image_flag[][9]) {
 	
 	if(Save_image_flag[2][make_image_repeat]==0)return;		//“Á’è‚Ì‰ÓŠ‚Ì‰æ‘œ‚ğì¬‚µ‚È‚¢‚É‹A‚é
 	

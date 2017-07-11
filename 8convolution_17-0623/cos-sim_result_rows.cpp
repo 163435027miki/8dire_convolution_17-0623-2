@@ -21,7 +21,7 @@ int timeset(char date_directory[]);
 
 int first_entry_cossim_result_rows=0;
 
-int cossim_result_row(char date_directory[], int image_x, int image_y,int paramerter[],int paramerter_count_max,int sd_max){
+int cossim_result_row(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count_max,int sd_max){
 
 	printf("データの集計を行います\n");
 	++first_entry_cossim_result_rows;
