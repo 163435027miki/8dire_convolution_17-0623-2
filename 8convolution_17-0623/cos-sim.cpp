@@ -128,6 +128,7 @@ int i,j;
 	void Rvector_read();
 	void Read_output();
 
+
 int cossim(char date_directory[],int &image_x,int &image_y,int paramerter[],int paramerter_count,int sd,char date[]){
 	printf("****************************************\n");
 	printf("startF cos-sim\n");

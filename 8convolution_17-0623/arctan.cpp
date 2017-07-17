@@ -16,34 +16,36 @@
 
 using namespace std;
 
-char date_directory4[128];
 
-char *Input_Filename_atan1_s = "\\V(0).csv";			//入力ファイル名の指定
-char *Input_Filename_atan3_s = "\\V(90).csv";
-char inputdate_directory_atan[128];
-
-char *math_atan1_s = "\\arctan.csv";				//出力結果のファイル名の指定
-char *math_atan5_s = "\\threshold_atan_high.csv";
-char *math_atan8_s = "\\threshold2.csv";
-char *math_atan9_s = "\\threshold_atan_low.csv";
-
-char Input_Filename_atan1[255];						//入力ファイル名・入力元の設定
-char Input_Filename_atan3[255];
-
-char math_atan1[128];							//内積						
-char math_atan5[128];							//threshold_atan_high
-char math_atan8[128];							//2つの閾値を一つに
-char math_atan9[128];							//threshold(use_Rvector_flagの応答電圧Vの大きさ）
-
-double threshold_atan_high;
-double threshold_atan_low;
-double threshold_atan_low_abs;
-double threshold_atan_high_abs;
-
-FILE *fp_arctan, *fp_threshold_atan_low, *fp_threshold_atan_high, *fp_atan_threshold2;
 
 
 int arctan(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count,int sd,char date[]){
+
+	char date_directory4[128];
+
+	char *Input_Filename_atan1_s = "\\V(0).csv";			//入力ファイル名の指定
+	char *Input_Filename_atan3_s = "\\V(90).csv";
+	char inputdate_directory_atan[128];
+
+	char *math_atan1_s = "\\arctan.csv";				//出力結果のファイル名の指定
+	char *math_atan5_s = "\\threshold_atan_high.csv";
+	char *math_atan8_s = "\\threshold2.csv";
+	char *math_atan9_s = "\\threshold_atan_low.csv";
+
+	char Input_Filename_atan1[255];						//入力ファイル名・入力元の設定
+	char Input_Filename_atan3[255];
+
+	char math_atan1[128];							//内積						
+	char math_atan5[128];							//threshold_atan_high
+	char math_atan8[128];							//2つの閾値を一つに
+	char math_atan9[128];							//threshold(use_Rvector_flagの応答電圧Vの大きさ）
+
+	double threshold_atan_high;
+	double threshold_atan_low;
+	double threshold_atan_low_abs;
+	double threshold_atan_high_abs;
+
+	FILE *fp_arctan, *fp_threshold_atan_low, *fp_threshold_atan_high, *fp_atan_threshold2;
 
 	printf("****************************************\n");
 	printf("start： atan\n");
@@ -87,9 +89,9 @@ int arctan(char date_directory[], int &image_x, int &image_y,int paramerter[],in
 	printf("Input_Filename_atan1=%s\n", Input_Filename_atan1);
 
 	if(paramerter[0]==1){
-		sprintf(date_directory4, "%s%d×%dsobel_atan_sd%d", date_directory, paramerter[paramerter_count],paramerter[paramerter_count], sd);
+		sprintf(date_directory4, "%s%d×%dsobel_Bazen_atan_sd%d", date_directory, paramerter[paramerter_count],paramerter[paramerter_count], sd);
 	}else{
-		sprintf(date_directory4, "%s%dk_atan_sd%d", date_directory, paramerter[paramerter_count], sd);
+		sprintf(date_directory4, "%s%dk_Bazen_atan_sd%d", date_directory, paramerter[paramerter_count], sd);
 	}
 
 	if (_mkdir(date_directory4) == 0) {

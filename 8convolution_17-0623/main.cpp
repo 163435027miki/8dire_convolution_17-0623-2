@@ -28,6 +28,7 @@ int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &imag
 int cossim(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count,int sd,char date[]);
 int arctan(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count,int sd,char date[]);
 int cossim_result_row(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count_max,int sd_max);
+int Bazen_atan(char date_directory[], int &image_x, int &image_y,int paramerter[],int paramerter_count,int sd,char date[]);
 
 
 int main(int argc, char** argv){
@@ -40,7 +41,7 @@ int main(int argc, char** argv){
 		for(sd=0;sd<=50;sd=sd+10){
 		
 			if(paramerter[0]==1){
-				sprintf(image_nameP,"..\\property_usa\\simulation17-0711\\property_%d~%dsobel_conv_",paramerter[paramerter_count],paramerter[paramerter_count]);
+				sprintf(image_nameP,"..\\property_usa\\simulation17-0712\\property_%d~%dsobel_conv_",paramerter[paramerter_count],paramerter[paramerter_count]);
 			}else{
 				//sprintf(image_nameP,"..\\property_usa\\simulation17-0616_circle-2\\property_%dk_conv_",paramerter[paramerter_count]);
 				sprintf(image_nameP,"..\\property_usa\\simulation17-0705_noise_sobel\\property_3~3sobel_conv_");
@@ -49,13 +50,14 @@ int main(int argc, char** argv){
 			//sprintf(image_nameP2,"%sproperty_%d~%dsobel_conv_IT%d.txt",image_nameP,paramerter[paramerter_count],paramerter[paramerter_count],sd);
 
 			convolution(argc, argv,image_nameP2,image_x,image_y,paramerter,paramerter_count,sd,date,date_directory);
-			cossim(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
-			arctan(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
+			//cossim(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
+			//arctan(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
+			Bazen_atan(date_directory,image_x,image_y,paramerter,paramerter_count,sd,date);
 
 		}
 	}
 
-	cossim_result_row(date_directory, image_x ,image_y,paramerter,paramerter_count_max,sd_max);
+	//cossim_result_row(date_directory, image_x ,image_y,paramerter,paramerter_count_max,sd_max);
 
 	printf("‘S‚Ä‚Ìˆ—‚ªI—¹‚µ‚Ü‚µ‚½\n");
 	

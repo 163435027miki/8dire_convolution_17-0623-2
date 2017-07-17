@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="arctan.cpp" />
+    <ClCompile Include="Bazen_atan.cpp" />
     <ClCompile Include="convolution.cpp" />
     <ClCompile Include="cos-sim.cpp" />
     <ClCompile Include="cos-sim_result_rows.cpp" />

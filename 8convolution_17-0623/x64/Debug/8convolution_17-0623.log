@@ -1,98 +1,27 @@
-﻿2017/07/11 16:18:59 にビルドを開始しました。
-     1>ノード 2 上のプロジェクト "D:\desktop_program\8dire_convolution_17-0623 - コピー\8convolution_17-0623\8convolution_17-0623.vcxproj" (build ターゲット)。
+﻿2017/07/17 16:41:35 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "D:\desktop_program\8dire_convolution_17-0623\8convolution_17-0623\8convolution_17-0623.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "x64\Debug\8convolution_17-0623.unsuccessfulbuild" を作成しています。
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"D:\opencv-3.1.0-vc10\build\install\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt convolution.cpp
-         convolution.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"D:\opencv-3.1.0-vc10\build\install\include" /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
      1>D:\opencv-3.1.0-vc10\build\install\include\opencv2/core/mat.hpp(1965): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
      1>D:\opencv-3.1.0-vc10\build\install\include\opencv2/core/persistence.hpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
      1>D:\opencv-3.1.0-vc10\build\install\include\opencv2/core/mat.hpp(1965): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
      1>D:\opencv-3.1.0-vc10\build\install\include\opencv2/core/utility.hpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
      1>D:\opencv-3.1.0-vc10\build\install\include\opencv2/core/utility.hpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-     1>convolution.cpp(137): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(44): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(207): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(47): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(208): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>main.cpp(49): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(209): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(210): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(211): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(212): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(213): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(214): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(234): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 'fopen' の宣言を確認してください。
-     1>convolution.cpp(255): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(256): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 'fopen' の宣言を確認してください。
-     1>convolution.cpp(309): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(318): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(320): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(331): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(332): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(333): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(334): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(335): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(336): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(337): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(338): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(356): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(383): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(384): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(385): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(386): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(387): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(388): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(389): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(390): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(391): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(392): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(393): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 'sprintf' の宣言を確認してください。
-     1>convolution.cpp(405): warning C4244: '初期化中' : 'float' から 'int' への変換です。データが失われる可能性があります。
-     1>convolution.cpp(432): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 'fopen' の宣言を確認してください。
-     1>convolution.cpp(439): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(253) : 'fscanf' の宣言を確認してください。
-     1>convolution.cpp(451): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : 'fopen' の宣言を確認してください。
-     1>d:\desktop_program\8dire_convolution_17-0623 - コピー\8convolution_17-0623\convolution.cpp(290): warning C4715: 'convolution' : 値を返さないコントロール パスがあります。
        ManifestResourceCompile:
          すべての出力が最新のものです。
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\desktop_program\8dire_convolution_17-0623 - コピー\x64\Debug\8convolution_17-0623.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\opencv-3.1.0-vc10\build\install\x64\vc10\lib" opencv_calib3d310d.lib opencv_core310d.lib opencv_features2d310d.lib opencv_flann310d.lib opencv_highgui310d.lib opencv_imgcodecs310d.lib opencv_imgproc310d.lib opencv_ml310d.lib opencv_objdetect310d.lib opencv_photo310d.lib opencv_shape310d.lib opencv_superres310d.lib opencv_ts310d.lib opencv_video310d.lib opencv_videoio310d.lib opencv_videostab310d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\8convolution_17-0623.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\desktop_program\8dire_convolution_17-0623 - コピー\x64\Debug\8convolution_17-0623.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\desktop_program\8dire_convolution_17-0623 - コピー\x64\Debug\8convolution_17-0623.lib" /MACHINE:X64 "x64\Debug\8convolution_17-0623.exe.embed.manifest.res"
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\desktop_program\8dire_convolution_17-0623\x64\Debug\8convolution_17-0623.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\opencv-3.1.0-vc10\build\install\x64\vc10\lib" opencv_calib3d310d.lib opencv_core310d.lib opencv_features2d310d.lib opencv_flann310d.lib opencv_highgui310d.lib opencv_imgcodecs310d.lib opencv_imgproc310d.lib opencv_ml310d.lib opencv_objdetect310d.lib opencv_photo310d.lib opencv_shape310d.lib opencv_superres310d.lib opencv_ts310d.lib opencv_video310d.lib opencv_videoio310d.lib opencv_videostab310d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\8convolution_17-0623.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\desktop_program\8dire_convolution_17-0623\x64\Debug\8convolution_17-0623.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\desktop_program\8dire_convolution_17-0623\x64\Debug\8convolution_17-0623.lib" /MACHINE:X64 "x64\Debug\8convolution_17-0623.exe.embed.manifest.res"
          x64\Debug\arctan.obj
+         x64\Debug\Bazen_atan.obj
          x64\Debug\convolution.obj
          "x64\Debug\cos-sim.obj"
          "x64\Debug\cos-sim_result_rows.obj"
@@ -100,18 +29,18 @@
          x64\Debug\make_image.obj
          x64\Debug\Nrutil.obj
          x64\Debug\time.obj
-         8convolution_17-0623.vcxproj -> D:\desktop_program\8dire_convolution_17-0623 - コピー\x64\Debug\8convolution_17-0623.exe
+         8convolution_17-0623.vcxproj -> D:\desktop_program\8dire_convolution_17-0623\x64\Debug\8convolution_17-0623.exe
        Manifest:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"x64\Debug\8convolution_17-0623.exe.embed.manifest" /manifest "x64\Debug\8convolution_17-0623.exe.intermediate.manifest"
          すべての出力が最新のものです。
        LinkEmbedManifest:
          すべての出力が最新のものです。
-         8convolution_17-0623.vcxproj -> D:\desktop_program\8dire_convolution_17-0623 - コピー\x64\Debug\8convolution_17-0623.exe
+         8convolution_17-0623.vcxproj -> D:\desktop_program\8dire_convolution_17-0623\x64\Debug\8convolution_17-0623.exe
        FinalizeBuildStatus:
          ファイル "x64\Debug\8convolution_17-0623.unsuccessfulbuild" を削除しています。
          "x64\Debug\8convolution_17-0623.lastbuildstate" のタッチ タスクを実行しています。
-     1>プロジェクト "D:\desktop_program\8dire_convolution_17-0623 - コピー\8convolution_17-0623\8convolution_17-0623.vcxproj" (build ターゲット) のビルドが完了しました。
+     1>プロジェクト "D:\desktop_program\8dire_convolution_17-0623\8convolution_17-0623\8convolution_17-0623.vcxproj" (build ターゲット) のビルドが完了しました。
 
 ビルドに成功しました。
 
-経過時間 00:00:01.19
+経過時間 00:00:00.85
