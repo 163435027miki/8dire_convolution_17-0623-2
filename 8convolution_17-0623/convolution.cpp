@@ -16,10 +16,7 @@
 
 #include <direct.h>//フォルダを作成する
 
-#include <opencv2/opencv.hpp>
-
-//char date_directory[128];
-
+#include <opencv2/opencv.hpp>	//画像読み込み
 
 using namespace std;
 
@@ -64,8 +61,6 @@ char Filename6[64];
 char Filename7[64];
 char Filename8[64];
 
-
-
 //Rvector関連
 char Rvector_directory[128];
 double Rvector[9];
@@ -77,19 +72,15 @@ char *Rvector_Filename_s;
 char date_directory2[128];
 char outputbmp_directory[128];
 
-
 void read_property(ifstream &propety_dire,int &image_x,int &image_y,int &fs);
 void Rvector_createF();
 void set_outputfile(char date[],char date_directory[],int paramerter[],int paramerter_count,int sd);
 void read_filter(char inputfilter_directory[],int fs,double *spfil1[]);
 
-//void convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &image_y,int paramerter[],int paramerter_count,int sd,char date[],char date_directory[]) {
 int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &image_y,int paramerter[],int paramerter_count,int sd,char date[],char date_directory[]) {
 
-
+	//個別で画像を指定したいとき
 	//std::ifstream propety_dire("..\\property_usa\\simulation17-0613\\property_3k_conv_sd0.txt");
-///////////////////////////////初期設定1 : 入力画像指定//////////////////////////////////////////////////////////////////////////////////////
-
 	//基準ベクトルを取得するときはこちら
 	//int filter_number = 0;
 	//sprintf(Rvector_Filename, "%s\\Rvector%d.csv", Rvector_directory, filter_number);
@@ -107,7 +98,7 @@ int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &imag
 	int use_underthreshold_flag = 1;
 	int Save_image_flag[9][9];
 
-/////////////画像作成の有無/////////////////////////////////////////////////////////////////////////////////
+/////////////画像作成の有無////////////////////////////////////////////////////////////////
 	//画像作成判断の初期化(デフォルトでは作成しない)
 	for (int i = 0; i<9; ++i) {
 		Save_image_flag[1][i] = 0;
@@ -121,21 +112,17 @@ int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &imag
 	//8方向に画像を作成する
 	for (int i = 1; i <= 8; ++i) {
 
-		Save_image_flag[2][i] = 1;	//作成したい方向の画像の選択
+		Save_image_flag[2][i] = 1;	//作成したい方向の画像の選択．iを指定
 	}
 
 
 ////////////////////////////////////////////入力画像の読み込み////////////////////////////////////////////////////////////////////////////
-	
 	std::ifstream propety_dire;
 	propety_dire.open(image_nameP2,ios::in);
-
 	
-			
-	read_property(propety_dire,image_x,image_y,fs);
+	read_property(propety_dire,image_x,image_y,fs);	//propertyから読み取り
 	
 	sprintf(InputImage, inputimage_directory);	//propertyから読み取った入力画像情報を代入
-	
 	cv::Mat ImputImageM = cv::imread(InputImage);	//入力画像の読み込み．opencv
 	
 //////////////////////////初期設定の確認用//////////////////////////////////////////////////////////////////////////////
@@ -158,24 +145,21 @@ int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &imag
 	//確保したメモリを初期化する
 	for (y = 0; y < image_y; y++) {
 		for (x = 0; x < image_x; x++) {
-			
 			input_bmp[x][y] = 0;
 			output1[x][y] = 0;
 			output_bmp_image[x][y] = 0;	//追加2
 			output_bmp_flag[x][y] = 0;	//追加3
 		}
 	}
-	
 	for (fy = 1; fy <= fs; fy++) {
 		for (fx = 1; fx <= fs; fx++) {
 			spfil1[fx][fy] = 0;
 		}
 	}
+
 	int hfs = (fs + 1) / 2;			//フィルタの大きさの半分
 
-	
-	
-	/////////////////////////画像の読み取り//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////画像の読み取り//////////////////////////////////////////////////////////////////////////////////////////////
 	for (y = 0; y < image_y; ++y) {
 		for (x = 0; x < image_x; ++x) {
 			//opencvでは画素がR,G,Bの順で並んでいる
@@ -183,12 +167,10 @@ int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &imag
 			int G = 3 * x + 1;
 			int B = 3 * x + 2;
 			//グレースケールでの読み込み
-			
 			input_bmp[x][y] = (((ImputImageM.at<unsigned char>(y, R)+ImputImageM.at<unsigned char>(y, G)+ImputImageM.at<unsigned char>(y, B))/3)-Offset);
 			//input_bmp[x][y] = ImputImageM.at<unsigned char>(y, R)-Offset;
 		}
 	}
-	
 	//出力ファイルについての設定１
 	set_outputfile(date,date_directory,paramerter,paramerter_count,sd);
 
@@ -285,13 +267,13 @@ int convolution(int argc, char** argv,char image_nameP2[],int &image_x,int &imag
 
 	printf("finish：convolution\n");
 
-//return ;
+	//return ;
 	
 }
 
 void set_outputfile(char date[],char date_directory[],int paramerter[],int paramerter_count,int sd){
 	
-////////////////////////////初期設定4 : 出力結果のファイル名の指定//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////Outputディレクトリの設定//////////////////////////////////////////////////////////////////////////////////
 	//出力結果のファイル名の指定
 	char *Filename1_s = "V(0).csv";
 	char *Filename2_s = "V(45).csv";
@@ -303,9 +285,8 @@ void set_outputfile(char date[],char date_directory[],int paramerter[],int param
 	char *Filename8_s = "V(315).csv";
 
 
-	//結果を保存するフォルダの生成
+	//結果を保存するフォルダの作成
 	//フォルダ名は実行日時になる
-	
 	sprintf(date_directory, "..\\result_usa\\%s\\", date);
 	if (_mkdir(date_directory) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory);
@@ -316,9 +297,10 @@ void set_outputfile(char date[],char date_directory[],int paramerter[],int param
 
 	if(paramerter[0]==1){
 		sprintf(date_directory2, "%s%d×%dsobel_conv_sd%d\\", date_directory,paramerter[paramerter_count],paramerter[paramerter_count],sd);		
-			}else{
+	}else{
 		sprintf(date_directory2, "%s%dk_conv_sd%d\\", date_directory,paramerter[paramerter_count],sd);
 	}
+	//Outputディレクトリの作成
 	if (_mkdir(date_directory2) == 0) {
 		printf("フォルダ %s を作成しました\n", date_directory2);
 	}
@@ -327,7 +309,7 @@ void set_outputfile(char date[],char date_directory[],int paramerter[],int param
 	}
 	
 
-	//出力先フォルダの結合
+	//Outputファイルのディレクトリ設定
 	sprintf(Filename1,"%s%s", date_directory2, Filename1_s);
 	sprintf(Filename2, "%s%s", date_directory2, Filename2_s);
 	sprintf(Filename3, "%s%s", date_directory2, Filename3_s);
@@ -364,8 +346,6 @@ void Rvector_createF(){
 			printf("Rvecor保存フォルダ %s は作成済みです\n", Rvector_directory);
 		}
 	}
-
-	
 }
 
 
@@ -380,17 +360,17 @@ void read_property(ifstream &propety_dire,int &image_x,int &image_y,int &fs){
 	}
 	while (propety_dire.getline(propety, 256 - 1)){
 
-		if (count_property == 0)sprintf(Allpropety, propety);
-		if (count_property == 1)sprintf(outputrvector_directory, propety);
-		if (count_property == 2)sprintf(inputimage_directory, propety);
-		if (count_property == 3)sprintf(inputfilter_directory1, propety);
-		if (count_property == 4)sprintf(inputfilter_directory2, propety);
-		if (count_property == 5)sprintf(inputfilter_directory3, propety);
-		if (count_property == 6)sprintf(inputfilter_directory4, propety);
-		if (count_property == 7)sprintf(inputfilter_directory5, propety);
-		if (count_property == 8)sprintf(inputfilter_directory6, propety);
-		if (count_property == 9)sprintf(inputfilter_directory7, propety);
-		if (count_property == 10)sprintf(inputfilter_directory8, propety);
+		if (count_property == 0)sprintf(Allpropety, propety);				//一行目の画像サイズなど
+		if (count_property == 1)sprintf(outputrvector_directory, propety);	//使用する基準ベクトル
+		if (count_property == 2)sprintf(inputimage_directory, propety);		//入力画像
+		if (count_property == 3)sprintf(inputfilter_directory1, propety);	//使用するカーネル1
+		if (count_property == 4)sprintf(inputfilter_directory2, propety);	//使用するカーネル2
+		if (count_property == 5)sprintf(inputfilter_directory3, propety);	//使用するカーネル3
+		if (count_property == 6)sprintf(inputfilter_directory4, propety);	//使用するカーネル4
+		if (count_property == 7)sprintf(inputfilter_directory5, propety);	//使用するカーネル5
+		if (count_property == 8)sprintf(inputfilter_directory6, propety);	//使用するカーネル6
+		if (count_property == 9)sprintf(inputfilter_directory7, propety);	//使用するカーネル7
+		if (count_property == 10)sprintf(inputfilter_directory8, propety);	//使用するカーネル8
 
 		++count_property;
 	}
@@ -405,20 +385,17 @@ void read_property(ifstream &propety_dire,int &image_x,int &image_y,int &fs){
 		int All_tmp_property = stof(tmp_Allpropety); //stof(string str) : stringをintに変換
 		All_property[count_Allproperty] = All_tmp_property;
 
-
 ////////////////property.txtの一行目///////////////////////////////////////////////////////////
-		if (count_Allproperty == 0)image_x = All_property[count_Allproperty];				//&image_x:画像の横サイズ,max_x:画像の横サイズ-1
-		if (count_Allproperty == 1)image_y = All_property[count_Allproperty];				//&image_y:画像の縦サイズ,max_y:画像の縦サイズ-1
-		if (count_Allproperty == 2)Rvector_create = All_property[count_Allproperty];		//Rvector_create:1なら基準ベクトルを作成．この場合初期設定2を設定すること
+		if (count_Allproperty == 0)image_x = All_property[count_Allproperty];				//&image_x:画像の横サイズ(256pixelの画像の場合は256と指定)
+		if (count_Allproperty == 1)image_y = All_property[count_Allproperty];				//&image_y:画像の縦サイズ(256pixelの画像の場合は256と指定)
+		if (count_Allproperty == 2)Rvector_create = All_property[count_Allproperty];		//Rvector_create:1なら基準ベクトルを作成．
 		if (count_Allproperty == 3)Rvector_pointX = All_property[count_Allproperty];		//Rvector_pointX:基準ベクトル取得X座標．0からスタート
 		if (count_Allproperty == 4)Rvector_pointY = All_property[count_Allproperty];		//Rvector_pointY:基準ベクトル取得Y座標．0からスタート
 		if (count_Allproperty == 5)fs = All_property[count_Allproperty];					//fs:フィルタサイズ（奇数）
 
 		++count_Allproperty;
 	}
-	
 	propety_dire.close();
-	
 }
 
 
@@ -433,11 +410,9 @@ void read_filter(char inputfilter_directory[],int fs,double *spfil1[]){
 	for (fy = 1; fy <= fs; fy++) {
 		for (fx = 1; fx <= fs; fx++) {
 			fscanf(fp, "%lf	", &spfil1[fx][fy]);
-			
 		}
 	}
 	fclose(fp); 
-	
 }
 
 ///////////////////////畳み込み結果の書き込み////////////////////////////////////////
@@ -466,7 +441,6 @@ void write_file(char *Filename,int &image_x,int &image_y,double *output1[],int R
 	}
 	fclose(fp);
 
-	
 	//確保したメモリを初期化する
 	for (y = 0; y < image_y; y++) {
 		for (x = 0; x < image_x; x++) {
